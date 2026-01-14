@@ -111,14 +111,46 @@ window.addExtra = (n, v) => {
 
 function renderPasso4(app) {
     let total = montagem.reduce((a, b) => a + b.preco, 0);
-    carrinhoExtras.forEach(c => { const ex = db.extras.find(e => e.nome === c.nome); if(ex) total += (ex.preco * c.qty); });
+    carrinhoExtras.forEach(c => { 
+        const ex = db.extras.find(e => e.nome === c.nome); 
+        if(ex) total += (ex.preco * c.qty); 
+    });
+
     app.innerHTML = `
-        <h2 class="text-xl font-black uppercase mb-6 text-center">Dados de Entrega</h2>
-        <input id="cli_n" placeholder="Nome">
-        <input id="cli_e" placeholder="Endereço">
-        <select id="cli_p"><option>Pix</option><option>Dinheiro</option><option>Cartão</option></select>
-        <div class="p-8 card text-center my-6"><h3 class="text-4xl font-black text-yellow-500">${moeda(total)}</h3></div>
-        <button onclick="enviarZap('${total}')" class="btn-yellow">Enviar Pedido</button>`;
+        <h2 class="text-2xl font-black uppercase mb-8 text-center text-white">Finalizar Pedido</h2>
+        
+        <div class="checkout-form">
+            <div>
+                <label class="label-premium">Quem está pedindo?</label>
+                <input id="cli_n" class="input-premium" type="text" placeholder="Seu nome completo">
+            </div>
+
+            <div>
+                <label class="label-premium">Endereço de Entrega</label>
+                <input id="cli_e" class="input-premium" type="text" placeholder="Rua, nº, bairro e referência">
+            </div>
+
+            <div>
+                <label class="label-premium">Forma de Pagamento</label>
+                <select id="cli_p" class="input-premium">
+                    <option value="Pix">Pix</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Cartão">Cartão de Débito/Crédito</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="resumo-total">
+            <p class="text-zinc-500 text-[10px] font-bold uppercase mb-2 tracking-widest">Total a pagar</p>
+            <h3 class="text-5xl font-black text-yellow-500">${moeda(total)}</h3>
+        </div>
+
+        <div class="sticky-footer">
+            <button onclick="enviarZap('${total}')" class="btn-yellow" style="box-shadow: 0 10px 30px rgba(234, 179, 8, 0.3);">
+                 Confirmar e Enviar Pedido
+            </button>
+        </div>
+    `;
 }
 
 window.enviarZap = (total) => {
@@ -133,3 +165,4 @@ window.enviarZap = (total) => {
     location.reload();
 };
 render();
+
