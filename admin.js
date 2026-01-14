@@ -1,28 +1,86 @@
+let tempDb = null;
+
 function render() {
     const app = document.getElementById('app');
-    let tempDb = JSON.parse(JSON.stringify(db));
+    if (!tempDb) tempDb = JSON.parse(JSON.stringify(db));
 
     app.innerHTML = `
-        <h2 style="text-align:center; color:var(--primary);">PAINEL ADMINISTRATIVO</h2>
-        
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
-            <div class="card-adm" style="text-align:center;">
-                <small>PEDIDO ATUAL</small>
-                <p style="font-size:20px; font-weight:bold;">#${db.config.pedidoAtual}</p>
+        <div class="grid grid-cols-2 gap-2 mb-6">
+            <div class="card p-3 text-center">
+                <p class="text-[8px] uppercase text-zinc-500">Faturamento</p>
+                <p class="text-green-500 font-black">${moeda(tempDb.config.lucroTotal)}</p>
+                <button onclick="tempDb.config.lucroTotal=0;render()" class="text-[8px] underline text-zinc-600">Zerar</button>
             </div>
-            <div class="card-adm" style="text-align:center;">
-                <small>LUCRO TOTAL</small>
-                <p style="font-size:20px; font-weight:bold; color:var(--primary);">${moeda(db.config.lucroTotal || 0)}</p>
+            <div class="card p-3 text-center">
+                <p class="text-[8px] uppercase text-zinc-500">Pedido Nº</p>
+                <p class="font-black"># ${tempDb.config.pedidoAtual}</p>
+                <button onclick="tempDb.config.pedidoAtual=1;render()" class="text-[8px] underline text-zinc-600">Resetar</button>
             </div>
         </div>
 
-        <div class="card-adm">
-            <small>TELEFONE WHATSAPP:</small>
-            <input type="text" value="${db.config.tel}" oninput="db.config.tel=this.value" style="width:100%; background:#000; color:#fff; border:1px solid #444; padding:5px;">
+        <h3 class="secao-titulo">Configuração de Recebimento</h3>
+        <div class="card p-4 mb-6">
+            <label class="text-[10px] uppercase font-bold text-zinc-500 ml-1">WhatsApp de Vendas (Com DDD)</label>
+            <input type="text" value="${tempDb.config.tel}" 
+                oninput="tempDb.config.tel=this.value.replace(/\\D/g,'')" 
+                placeholder="Ex: 5583999999999" 
+                class="mt-2 !text-sm">
+            <p class="text-[9px] text-zinc-600 mt-2">Coloque 55 + DDD + Numero (Tudo junto)</p>
         </div>
 
-        <button onclick="saveToDisk();alert('Salvo!');location.reload()" class="btn-yellow" style="margin-top:20px;">SALVAR CONFIGURAÇÕES</button>
-        <button onclick="location.href='index.html'" style="width:100%; background:none; color:#666; border:none; margin-top:15px;">Voltar ao Site</button>
+        <h3 class="secao-titulo">Tamanhos e Fotos</h3>
+        ${tempDb.tamanhos.map((t, idx) => `
+            <div class="card p-2 mb-2 flex items-center gap-2">
+                <label class="w-10 h-10 bg-zinc-800 rounded overflow-hidden shrink-0 cursor-pointer">
+                    <img src="${t.img || ''}" class="w-full h-full object-cover">
+                    <input type="file" onchange="subirFoto(event, ${idx})" class="hidden">
+                </label>
+                <input type="text" value="${t.nome}" oninput="tempDb.tamanhos[${idx}].nome=this.value" class="!p-1 !text-xs" placeholder="Nome">
+                <input type="number" value="${t.preco}" oninput="tempDb.tamanhos[${idx}].preco=parseFloat(this.value)" class="!w-14 !p-1 !text-xs !mb-0">
+                <input type="number" value="${t.carnes}" oninput="tempDb.tamanhos[${idx}].carnes=parseInt(this.value)" class="!w-10 !p-1 !text-xs !mb-0" title="Carnes">
+                <button onclick="tempDb.tamanhos[${idx}].status=!tempDb.tamanhos[${idx}].status;render()" class="p-1 px-2 rounded text-[8px] font-bold ${t.status?'bg-white text-black':'bg-zinc-800 text-zinc-600'}">${t.status?'VAI':'OFF'}</button>
+                <button onclick="tempDb.tamanhos.splice(${idx},1);render()" class="text-red-600 px-1 font-bold">✕</button>
+            </div>`).join('')}
+        <button onclick="tempDb.tamanhos.push({id:Date.now().toString(),nome:'',preco:0,carnes:1,status:true,img:''});render()" class="w-full p-2 border border-dashed border-zinc-700 text-[10px] text-zinc-500 mb-6">+ NOVO TAMANHO</button>
+
+        <h3 class="secao-titulo">Carnes e Acompanhamentos</h3>
+        ${tempDb.cardapio.map((i, idx) => `
+            <div class="card p-2 mb-1 flex items-center gap-2">
+                <input type="text" value="${i.nome}" oninput="tempDb.cardapio[${idx}].nome=this.value" class="!p-1 !text-xs">
+                <select onchange="tempDb.cardapio[${idx}].tipo=this.value" class="!w-24 !p-1 !text-[8px] !mb-0">
+                    <option value="carne" ${i.tipo=='carne'?'selected':''}>CARNE</option>
+                    <option value="acomp" ${i.tipo=='acomp'?'selected':''}>ACOMP</option>
+                </select>
+                <button onclick="tempDb.cardapio[${idx}].status=!tempDb.cardapio[${idx}].status;render()" class="p-1 px-2 rounded text-[8px] font-bold ${i.status?'bg-white text-black':'bg-zinc-800 text-zinc-600'}">${i.status?'VAI':'OFF'}</button>
+                <button onclick="tempDb.cardapio.splice(${idx},1);render()" class="text-red-600 px-1 font-bold">✕</button>
+            </div>`).join('')}
+        <button onclick="tempDb.cardapio.push({nome:'',tipo:'carne',status:true});render()" class="w-full p-2 border border-dashed border-zinc-700 text-[10px] text-zinc-500 mb-6">+ NOVO ITEM</button>
+
+        <h3 class="secao-titulo">Bebidas / Sucos</h3>
+        ${tempDb.extras.map((e, idx) => `
+            <div class="card p-2 mb-1 flex items-center gap-2">
+                <input type="text" value="${e.nome}" oninput="tempDb.extras[${idx}].nome=this.value" class="!p-1 !text-xs">
+                <input type="number" value="${e.preco}" oninput="tempDb.extras[${idx}].preco=parseFloat(this.value)" class="!w-14 !p-1 !text-xs !mb-0">
+                <button onclick="tempDb.extras[${idx}].status=!tempDb.extras[${idx}].status;render()" class="p-1 px-2 rounded text-[8px] font-bold ${e.status?'bg-white text-black':'bg-zinc-800 text-zinc-600'}">${e.status?'VAI':'OFF'}</button>
+                <button onclick="tempDb.extras.splice(${idx},1);render()" class="text-red-600 px-1 font-bold">✕</button>
+            </div>`).join('')}
+        <button onclick="tempDb.extras.push({nome:'',preco:0,status:true});render()" class="w-full p-2 border border-dashed border-zinc-700 text-[10px] text-zinc-500">+ NOVA BEBIDA</button>
+
+        <div class="sticky-footer"><button onclick="salvarTudo()" class="btn-yellow">💾 SALVAR TUDO</button></div>
     `;
 }
+
+window.subirFoto = (e, idx) => {
+    const r = new FileReader();
+    r.onload = () => { tempDb.tamanhos[idx].img = r.result; render(); };
+    r.readAsDataURL(e.target.files[0]);
+};
+
+window.salvarTudo = () => { 
+    db = JSON.parse(JSON.stringify(tempDb)); 
+    saveToDisk(); 
+    alert("Dados salvos com sucesso!"); 
+    window.location.href = 'index.html'; 
+};
+
 render();
