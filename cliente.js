@@ -179,13 +179,13 @@ function renderPasso4(app) {
     app.innerHTML = `
         <h2 style="text-align:center; font-weight:900; margin-bottom:20px;">FINALIZAR PEDIDO</h2>
         
-        <label class="label-premium">Nome do Cliente</label>
-        <input id="cli_n" class="input-premium" placeholder="Quem recebe?">
+        <label style="font-size:10px; color:#71717a; text-transform:uppercase; font-weight:bold; margin-left:5px;">Nome</label>
+        <input id="cli_n" class="input-premium" placeholder="Seu nome">
 
-        <label class="label-premium">Endereço de Entrega</label>
+        <label style="font-size:10px; color:#71717a; text-transform:uppercase; font-weight:bold; margin-left:5px;">Endereço</label>
         <input id="cli_e" class="input-premium" placeholder="Rua, número e bairro">
 
-        <label class="label-premium">Forma de Pagamento</label>
+        <label style="font-size:10px; color:#71717a; text-transform:uppercase; font-weight:bold; margin-left:5px;">Pagamento</label>
         <select id="cli_p" class="input-premium">
             <option>Pix</option>
             <option>Dinheiro</option>
@@ -193,8 +193,8 @@ function renderPasso4(app) {
         </select>
 
         <div style="background:#111; padding:20px; border-radius:15px; text-align:center; margin:20px 0; border:1px solid #222;">
-            <p style="color:#666; font-size:10px; font-weight:bold;">TOTAL A PAGAR</p>
-            <h3 style="font-size:35px; color:var(--primary); margin:0; font-weight:900;">${moeda(total)}</h3>
+            <p style="color:#666; font-size:10px; font-weight:bold;">TOTAL</p>
+            <h3 style="font-size:35px; color:#eab308; margin:0; font-weight:900;">${moeda(total)}</h3>
         </div>
 
         <div class="sticky-footer">
@@ -230,4 +230,5 @@ window.enviarZap = (total) => {
 
 // Inicia o app
 render();
+
 
