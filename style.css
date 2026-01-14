@@ -1,99 +1,78 @@
-:root { --primary: #eab308; }
-body { 
-    background: #000; 
-    color: white; 
-    font-family: 'Inter', sans-serif; 
-    -webkit-tap-highlight-color: transparent;
-    margin: 0;
-    padding: 0;
+:root { --primary: #eab308; --bg-card: #121212; --border: #222; }
+body { background: #000; color: white; font-family: 'Inter', sans-serif; margin: 0; }
+
+#app { max-width: 500px; margin: 0 auto; padding: 15px; padding-bottom: 120px; }
+
+/* Estilo dos Campos de Endereço */
+input, select {
+    background: var(--bg-card) !important;
+    border: 2px solid var(--border) !important;
+    color: white !important;
+    padding: 14px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    margin-bottom: 12px !important;
+    font-size: 15px !important;
+    transition: all 0.3s;
+    box-sizing: border-box;
 }
+input:focus { border-color: var(--primary) !important; outline: none; box-shadow: 0 0 10px rgba(234, 179, 8, 0.1); }
 
-#app {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 10px;
-    padding-bottom: 140px; /* Espaço para o botão flutuante não cobrir o conteúdo */
-}
-
-.logo-title { font-weight: 900; font-size: 1.5rem; color: var(--primary); text-transform: uppercase; text-align: center; padding: 20px 0; }
-
-.card { 
-    background: #0c0c0c; 
-    border: 1px solid #1a1a1a; 
-    border-radius: 16px; 
-    display: flex; 
-    align-items: center; 
-    padding: 12px; 
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-/* Ajuste da imagem para não empurrar os botões */
-.card img {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    object-cover: cover;
-    flex-shrink: 0; /* Impede a imagem de amassar */
-}
-
-.card-info {
-    flex-grow: 1; /* Faz o texto ocupar o máximo de espaço possível */
-    min-width: 0; /* Evita que o texto quebre o layout */
-}
-
-.card-info h3 { font-size: 14px; font-weight: 700; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-info p { font-size: 16px; font-weight: 900; color: var(--primary); margin: 2px 0 0 0; }
-
-/* Container dos botões - Agora eles não cortam */
-.controles {
+/* Botões de Comida (Carnes e Acompanhamentos) */
+.item-comida {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    padding: 15px;
+    border-radius: 14px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    flex-shrink: 0; /* Garante que os botões mantenham o tamanho */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    margin-bottom: 8px;
 }
 
-.btn-control {
-    background: #1a1a1a;
-    color: white;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    border: 1px solid #333;
-    font-size: 20px;
-    font-weight: bold;
+.item-comida.selected {
+    border-color: var(--primary);
+    background: rgba(234, 179, 8, 0.05);
+    transform: scale(1.02);
+}
+
+.item-comida span { font-weight: 600; font-size: 15px; }
+
+/* Checkmark (Círculo de seleção) */
+.check-circle {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #333;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    transition: 0.3s;
+}
+.selected .check-circle {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+.selected .check-circle::after {
+    content: '✓';
+    color: black;
+    font-size: 12px;
+    font-weight: 900;
 }
 
-.btn-control:active { background: var(--primary); color: #000; }
-
-.qtd-num { font-weight: 900; font-size: 16px; min-width: 20px; text-align: center; }
-
-.sticky-footer { 
-    position: fixed; 
-    bottom: 0; 
-    width: 100%; 
-    max-width: 600px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    background: rgba(0,0,0,0.9); 
-    padding: 15px; 
-    z-index: 100; 
-    backdrop-filter: blur(10px);
-    box-sizing: border-box;
+/* Títulos de Seção */
+.secao-titulo {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 25px 0 10px 5px;
+    letter-spacing: 2px;
 }
 
-.btn-yellow { 
-    background: var(--primary); 
-    color: #000; 
-    font-weight: 900; 
-    padding: 18px; 
-    border-radius: 14px; 
-    width: 100%; 
-    text-transform: uppercase; 
-    border: none;
-    font-size: 16px;
-}
+/* Footer e Botão Principal */
+.sticky-footer { position: fixed; bottom: 0; width: 100%; max-width: 500px; left: 50%; transform: translateX(-50%); background: linear-gradient(transparent, #000 30%); padding: 20px; z-index: 100; box-sizing: border-box; }
+.btn-yellow { background: var(--primary); color: black; font-weight: 900; padding: 20px; border-radius: 16px; width: 100%; border: none; text-transform: uppercase; font-size: 16px; cursor: pointer; box-shadow: 0 10px 20px rgba(234, 179, 8, 0.2); }
