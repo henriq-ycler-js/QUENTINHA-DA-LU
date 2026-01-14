@@ -1,16 +1,25 @@
-/* Mantenha o que você já tem e adicione/ajuste isso: */
-.stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
+/* --- ESTILO PARA O CLIENTE (FINALIZAR PEDIDO) --- */
+.input-pedido {
+    background: #ffffff !important; /* Fundo branco para destacar */
+    border: 2px solid #eab308 !important;
+    color: #000000 !important; /* LETRAS PRETAS COMO VOCÊ PEDIU */
+    padding: 15px !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    margin-bottom: 12px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    box-sizing: border-box !important;
 }
-.stat-card {
+
+/* --- VOLTAR O ADM PARA O ORIGINAL --- */
+/* Isso remove qualquer interferência nos inputs do painel de controle */
+#app input:not(.input-pedido), 
+#app select:not(.input-pedido) {
+    all: revert; /* Força a volta para o padrão do navegador/original */
     background: #111;
-    border: 1px solid #222;
-    padding: 15px;
-    border-radius: 12px;
-    text-align: center;
+    color: white;
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #333;
 }
-.stat-card small { font-size: 10px; color: #666; text-transform: uppercase; font-weight: bold; }
-.stat-card p { font-size: 18px; font-weight: 900; color: var(--primary); margin: 5px 0 0 0; }
