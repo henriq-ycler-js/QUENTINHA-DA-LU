@@ -8,79 +8,92 @@ body {
     padding: 0;
 }
 
-/* Garante que em tablets o conteúdo não fique esticado demais */
 #app {
     max-width: 600px;
     margin: 0 auto;
-    padding-bottom: 120px;
+    padding: 10px;
+    padding-bottom: 140px; /* Espaço para o botão flutuante não cobrir o conteúdo */
 }
 
-.logo-title { font-weight: 900; font-size: 1.8rem; color: var(--primary); text-transform: uppercase; letter-spacing: -1px; }
+.logo-title { font-weight: 900; font-size: 1.5rem; color: var(--primary); text-transform: uppercase; text-align: center; padding: 20px 0; }
 
-.card { background: #0c0c0c; border: 1px solid #1a1a1a; border-radius: 16px; overflow: hidden; }
-
-.btn-yellow { 
-    background: var(--primary); 
-    color: #000; 
-    font-weight: 900; 
-    padding: 20px; 
+.card { 
+    background: #0c0c0c; 
+    border: 1px solid #1a1a1a; 
     border-radius: 16px; 
-    width: 100%; 
-    text-transform: uppercase; 
-    border: none; 
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 4px 15px rgba(234, 179, 8, 0.2);
+    display: flex; 
+    align-items: center; 
+    padding: 12px; 
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
-input, select { 
-    background: #0c0c0c !important; 
-    border: 1px solid #222 !important; 
-    color: white !important; 
-    padding: 16px; 
-    border-radius: 12px; 
-    width: 100%; 
-    outline: none; 
-    font-size: 16px;
-    appearance: none;
+/* Ajuste da imagem para não empurrar os botões */
+.card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-cover: cover;
+    flex-shrink: 0; /* Impede a imagem de amassar */
 }
+
+.card-info {
+    flex-grow: 1; /* Faz o texto ocupar o máximo de espaço possível */
+    min-width: 0; /* Evita que o texto quebre o layout */
+}
+
+.card-info h3 { font-size: 14px; font-weight: 700; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-info p { font-size: 16px; font-weight: 900; color: var(--primary); margin: 2px 0 0 0; }
+
+/* Container dos botões - Agora eles não cortam */
+.controles {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0; /* Garante que os botões mantenham o tamanho */
+}
+
+.btn-control {
+    background: #1a1a1a;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-control:active { background: var(--primary); color: #000; }
+
+.qtd-num { font-weight: 900; font-size: 16px; min-width: 20px; text-align: center; }
 
 .sticky-footer { 
     position: fixed; 
     bottom: 0; 
     width: 100%; 
-    max-width: 600px; /* Mesma largura do #app */
+    max-width: 600px; 
     left: 50%; 
     transform: translateX(-50%); 
-    background: linear-gradient(to top, #000 70%, transparent); 
-    padding: 20px; 
-    z-index: 50; 
-    backdrop-filter: blur(10px); 
+    background: rgba(0,0,0,0.9); 
+    padding: 15px; 
+    z-index: 100; 
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
 }
 
-.item-vai-nao { 
-    border: 1px solid #1a1a1a; 
-    padding: 16px; 
-    border-radius: 16px; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.item-vai-nao.selected { 
-    border-color: var(--primary); 
-    background: #eab30815; 
-}
-
-.secao-titulo { 
-    color: #444; 
-    font-size: 11px; 
+.btn-yellow { 
+    background: var(--primary); 
+    color: #000; 
     font-weight: 900; 
+    padding: 18px; 
+    border-radius: 14px; 
+    width: 100%; 
     text-transform: uppercase; 
-    margin-bottom: 10px; 
-    margin-top: 25px;
-    letter-spacing: 1px;
-    padding-left: 5px;
+    border: none;
+    font-size: 16px;
 }
