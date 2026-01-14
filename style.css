@@ -1,41 +1,9 @@
-/* --- 1. VARIÁVEIS E BASE --- */
-:root { --primary: #eab308; --bg-card: #121212; --border: #222; --bg-adm: #1c1c1c; }
-body { background: #000; color: white; font-family: 'Inter', sans-serif; margin: 0; }
-#app { max-width: 500px; margin: 0 auto; padding: 15px; padding-bottom: 120px; }
+:root { --primary: #eab308; --bg: #000; --card: #121212; --border: #222; }
+body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+#app { max-width: 500px; margin: 0 auto; padding: 15px; padding-bottom: 140px; }
 
-/* --- 2. ÁREA DO CLIENTE (MONTAGEM E PEDIDO) --- */
-
-/* Botões de Comida (Carnes/Acomp) */
-.item-comida {
-    background: var(--bg-card);
-    border: 2px solid var(--border);
-    padding: 15px;
-    border-radius: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-bottom: 8px;
-}
-.item-comida.selected { border-color: var(--primary); background: rgba(234, 179, 8, 0.05); transform: scale(1.02); }
-
-/* Checkmark (Círculo de seleção) */
-.check-circle { width: 22px; height: 22px; border: 2px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.selected .check-circle { background: var(--primary); border-color: var(--primary); }
-.selected .check-circle::after { content: '✓'; color: black; font-size: 12px; font-weight: 900; }
-
-/* Formulário de Finalização "Premium" */
-.label-premium {
-    display: block;
-    font-size: 11px;
-    font-weight: 800;
-    color: #71717a;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    margin-left: 4px;
-    letter-spacing: 1px;
-}
+/* --- VISUAL DO CLIENTE (O QUE VOCÊ PEDIU) --- */
+.label-premium { display: block; font-size: 11px; font-weight: 800; color: #71717a; text-transform: uppercase; margin: 0 0 8px 4px; letter-spacing: 1px; }
 
 .input-premium {
     background: #18181b !important;
@@ -47,49 +15,39 @@ body { background: #000; color: white; font-family: 'Inter', sans-serif; margin:
     font-size: 16px !important;
     margin-bottom: 20px !important;
     box-sizing: border-box !important;
-    outline: none !important;
+    display: block !important;
 }
-.input-premium:focus { border-color: var(--primary) !important; background: #202023 !important; }
 
-/* Resumo do Valor Total */
 .resumo-total {
     background: linear-gradient(145deg, #18181b, #09090b);
     border: 1px solid #27272a;
     border-radius: 24px;
-    padding: 30px;
+    padding: 25px;
     text-align: center;
-    margin: 30px 0;
+    margin: 20px 0;
 }
 
-/* --- 3. PAINEL DE ADMINISTRAÇÃO (FIX PARA NÃO QUEBRAR) --- */
+/* --- VISUAL DO ADM (PARA NÃO QUEBRAR) --- */
+.card-adm { background: #111; border: 1px solid #333; padding: 8px; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 
-/* Forçamos os inputs do ADM a serem menores e não usarem o estilo premium */
-.card-adm {
-    background: var(--bg-adm);
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
+/* Inputs pequenos exclusivos para o ADM */
 .input-adm {
     background: #000 !important;
-    border: 1px solid #333 !important;
+    border: 1px solid #444 !important;
     color: white !important;
-    padding: 8px !important;
+    padding: 6px 10px !important;
     border-radius: 6px !important;
     font-size: 13px !important;
-    width: auto !important; /* Impede de ocupar 100% no ADM */
-    margin-bottom: 0 !important;
+    width: auto !important;
+    margin: 0 !important;
+    height: 35px !important;
 }
 
-/* --- 4. GERAL E BOTÕES --- */
-.secao-titulo { color: var(--primary); font-size: 11px; font-weight: 900; text-transform: uppercase; margin: 25px 0 10px 5px; letter-spacing: 2px; }
-.sticky-footer { position: fixed; bottom: 0; width: 100%; max-width: 500px; left: 50%; transform: translateX(-50%); background: linear-gradient(transparent, #000 30%); padding: 20px; z-index: 100; box-sizing: border-box; }
-.btn-yellow { background: var(--primary); color: black; font-weight: 900; padding: 20px; border-radius: 16px; width: 100%; border: none; text-transform: uppercase; font-size: 16px; cursor: pointer; box-shadow: 0 10px 20px rgba(234, 179, 8, 0.2); }
-
-/* Card de listagem (Tamanhos/Bebidas no Cliente) */
-.card-list { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; display: flex; align-items: center; padding: 12px; gap: 12px; margin-bottom: 12px; }
-.card-list img { width: 65px; height: 65px; border-radius: 12px; object-fit: cover; }
+/* --- BOTÕES E GERAL --- */
+.btn-yellow { background: var(--primary); color: #000; font-weight: 900; padding: 18px; border-radius: 16px; width: 100%; border: none; text-transform: uppercase; cursor: pointer; }
+.sticky-footer { position: fixed; bottom: 0; width: 100%; max-width: 500px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); padding: 15px; z-index: 100; box-sizing: border-box; }
+.item-comida { background: var(--card); border: 2px solid var(--border); padding: 15px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-bottom: 8px; }
+.item-comida.selected { border-color: var(--primary); background: rgba(234, 179, 8, 0.05); }
+.check-circle { width: 22px; height: 22px; border: 2px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.selected .check-circle { background: var(--primary); border-color: var(--primary); }
+.selected .check-circle::after { content: '✓'; color: black; font-size: 12px; font-weight: 900; }
