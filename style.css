@@ -1,99 +1,13 @@
 :root { --primary: #eab308; }
-body { 
-    background: #000; 
-    color: white; 
-    font-family: 'Inter', sans-serif; 
-    -webkit-tap-highlight-color: transparent;
-    margin: 0;
-    padding: 0;
-}
+body { background: #000; color: white; font-family: sans-serif; margin: 0; padding: 0; }
+#app { max-width: 500px; margin: 0 auto; padding: 20px; padding-bottom: 100px; }
 
-#app {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 10px;
-    padding-bottom: 140px; /* Espaço para o botão flutuante não cobrir o conteúdo */
-}
+.card { background: #111; border: 1px solid #222; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+.btn-control { background: #222; color: white; border: none; width: 35px; height: 35px; border-radius: 5px; font-weight: bold; }
+.btn-yellow { background: var(--primary); color: #000; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
+.sticky-footer { position: fixed; bottom: 0; width: 100%; max-width: 500px; left: 50%; transform: translateX(-50%); background: #000; padding: 15px; box-sizing: border-box; border-top: 1px solid #222; }
 
-.logo-title { font-weight: 900; font-size: 1.5rem; color: var(--primary); text-transform: uppercase; text-align: center; padding: 20px 0; }
+input, select { background: #111; border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; width: 100%; margin-bottom: 10px; box-sizing: border-box; }
 
-.card { 
-    background: #0c0c0c; 
-    border: 1px solid #1a1a1a; 
-    border-radius: 16px; 
-    display: flex; 
-    align-items: center; 
-    padding: 12px; 
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-/* Ajuste da imagem para não empurrar os botões */
-.card img {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    object-cover: cover;
-    flex-shrink: 0; /* Impede a imagem de amassar */
-}
-
-.card-info {
-    flex-grow: 1; /* Faz o texto ocupar o máximo de espaço possível */
-    min-width: 0; /* Evita que o texto quebre o layout */
-}
-
-.card-info h3 { font-size: 14px; font-weight: 700; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-info p { font-size: 16px; font-weight: 900; color: var(--primary); margin: 2px 0 0 0; }
-
-/* Container dos botões - Agora eles não cortam */
-.controles {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0; /* Garante que os botões mantenham o tamanho */
-}
-
-.btn-control {
-    background: #1a1a1a;
-    color: white;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    border: 1px solid #333;
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.btn-control:active { background: var(--primary); color: #000; }
-
-.qtd-num { font-weight: 900; font-size: 16px; min-width: 20px; text-align: center; }
-
-.sticky-footer { 
-    position: fixed; 
-    bottom: 0; 
-    width: 100%; 
-    max-width: 600px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    background: rgba(0,0,0,0.9); 
-    padding: 15px; 
-    z-index: 100; 
-    backdrop-filter: blur(10px);
-    box-sizing: border-box;
-}
-
-.btn-yellow { 
-    background: var(--primary); 
-    color: #000; 
-    font-weight: 900; 
-    padding: 18px; 
-    border-radius: 14px; 
-    width: 100%; 
-    text-transform: uppercase; 
-    border: none;
-    font-size: 16px;
-}
+.item-vai-nao { background: #111; border: 1px solid #222; padding: 12px; border-radius: 8px; margin-bottom: 5px; display: flex; justify-content: space-between; cursor: pointer; }
+.item-vai-nao.selected { border-color: var(--primary); background: #221a00; }
