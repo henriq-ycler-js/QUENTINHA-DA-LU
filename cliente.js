@@ -174,23 +174,32 @@ window.addExtra = (n, v) => {
 // --- PASSO 4: FINALIZAR ---
 function renderPasso4(app) {
     let total = montagem.reduce((a, b) => a + b.preco, 0);
-    carrinhoExtras.forEach(c => { 
-        const ex = db.extras.find(e => e.nome === c.nome); 
-        if(ex) total += (ex.preco * c.qty); 
-    });
+    carrinhoExtras.forEach(c => { const ex = db.extras.find(e => e.nome === c.nome); if(ex) total += (ex.preco * c.qty); });
 
     app.innerHTML = `
-        <h2 class="text-xl font-black uppercase mb-6 text-center">Finalizar Pedido</h2>
-        <div class="space-y-4">
-            <input id="cli_n" placeholder="Seu Nome">
-            <input id="cli_e" placeholder="Endereço de Entrega">
-            <select id="cli_p"><option>Pix</option><option>Dinheiro</option><option>Cartão</option></select>
+        <h2 style="text-align:center; font-weight:900; margin-bottom:20px;">FINALIZAR PEDIDO</h2>
+        
+        <label class="label-premium">Nome do Cliente</label>
+        <input id="cli_n" class="input-premium" placeholder="Quem recebe?">
+
+        <label class="label-premium">Endereço de Entrega</label>
+        <input id="cli_e" class="input-premium" placeholder="Rua, número e bairro">
+
+        <label class="label-premium">Forma de Pagamento</label>
+        <select id="cli_p" class="input-premium">
+            <option>Pix</option>
+            <option>Dinheiro</option>
+            <option>Cartão</option>
+        </select>
+
+        <div style="background:#111; padding:20px; border-radius:15px; text-align:center; margin:20px 0; border:1px solid #222;">
+            <p style="color:#666; font-size:10px; font-weight:bold;">TOTAL A PAGAR</p>
+            <h3 style="font-size:35px; color:var(--primary); margin:0; font-weight:900;">${moeda(total)}</h3>
         </div>
-        <div class="p-8 card text-center my-6 border-yellow-500/30">
-            <p class="text-zinc-500 text-xs uppercase font-bold">Total a Pagar</p>
-            <h3 class="text-5xl font-black text-yellow-500">${moeda(total)}</h3>
-        </div>
-        <button onclick="enviarZap('${total}')" class="btn-yellow !py-6 text-xl">🚀 Enviar no WhatsApp</button>`;
+
+        <div class="sticky-footer">
+            <button onclick="enviarZap('${total}')" class="btn-yellow">🚀 Enviar Pedido</button>
+        </div>`;
 }
 
 window.enviarZap = (total) => {
@@ -221,3 +230,4 @@ window.enviarZap = (total) => {
 
 // Inicia o app
 render();
+
