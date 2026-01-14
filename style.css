@@ -1,47 +1,50 @@
-:root { --primary: #eab308; --bg-card: #121212; --border: #222; }
-body { background: #000; color: white; font-family: 'Inter', sans-serif; margin: 0; }
+:root { --primary: #eab308; --bg: #000; --card: #121212; --border: #262626; }
+body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
 
-#app { max-width: 500px; margin: 0 auto; padding: 15px; padding-bottom: 140px; }
+#app { max-width: 500px; margin: 0 auto; padding: 15px; padding-bottom: 150px; }
 
-/* --- ESTILO DO CLIENTE --- */
+/* --- ÁREA DE SELEÇÃO (CARNES E ACOMP) --- */
 .item-comida {
-    background: var(--bg-card);
+    background: var(--card);
     border: 2px solid var(--border);
-    padding: 16px;
-    border-radius: 14px;
+    padding: 18px;
+    border-radius: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    margin-bottom: 8px;
-    transition: 0.2s;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
 }
-.item-comida.selected { border-color: var(--primary); background: rgba(234, 179, 8, 0.1); }
-.check-circle { width: 22px; height: 22px; border: 2px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.selected .check-circle { background: var(--primary); border-color: var(--primary); }
-.selected .check-circle::after { content: '✓'; color: black; font-size: 12px; font-weight: 900; }
+.item-comida.selected { border-color: var(--primary); background: #eab30810; }
+.check-bola { width: 24px; height: 24px; border: 2px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+.selected .check-bola { background: var(--primary); border-color: var(--primary); }
+.selected .check-bola::after { content: '✓'; color: black; font-weight: 900; font-size: 14px; }
 
-/* Campos de Endereço */
-.input-bonito {
-    background: #0c0c0c !important;
-    border: 2px solid #222 !important;
+/* --- FORMULÁRIO DE FINALIZAÇÃO (BONITO) --- */
+.grupo-input { margin-bottom: 20px; }
+.label-input { display: block; font-size: 11px; font-weight: 800; color: #71717a; text-transform: uppercase; margin-bottom: 8px; margin-left: 4px; letter-spacing: 0.5px; }
+.campo-texto {
+    background: #18181b !important;
+    border: 2px solid #27272a !important;
     color: white !important;
-    padding: 14px !important;
-    border-radius: 12px !important;
     width: 100% !important;
-    margin-bottom: 15px !important;
-    display: block;
+    padding: 16px !important;
+    border-radius: 14px !important;
+    font-size: 16px !important;
+    box-sizing: border-box !important;
+    outline: none !important;
 }
+.campo-texto:focus { border-color: var(--primary) !important; }
 
-/* --- ESTILO DO ADM (Para não quebrar mais) --- */
-.card-adm { background: #111; border: 1px solid #222; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
-.input-adm { background: #222 !important; border: 1px solid #333 !important; color: white !important; padding: 5px !important; border-radius: 4px !important; font-size: 12px !important; margin: 0 !important; width: auto !important; }
+/* --- PAINEL ADM (PARA NÃO QUEBRAR) --- */
+.adm-box { background: #18181b; border: 1px solid #27272a; padding: 10px; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.adm-input { background: #000 !important; border: 1px solid #3f3f46 !important; color: white !important; padding: 8px !important; border-radius: 6px !important; font-size: 13px !important; width: 100% !important; }
+.adm-btn-del { color: #ef4444; font-weight: bold; padding: 5px; cursor: pointer; }
 
-/* Geral */
-.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; display: flex; align-items: center; padding: 12px; gap: 12px; margin-bottom: 12px; }
-.card img { width: 65px; height: 65px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
-.card-info { flex-grow: 1; }
-.controles { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.btn-control { background: #1a1a1a; color: white; width: 38px; height: 38px; border-radius: 10px; border: 1px solid #333; font-size: 20px; font-weight: bold; }
-.btn-yellow { background: var(--primary); color: black; font-weight: 900; padding: 20px; border-radius: 16px; width: 100%; border: none; text-transform: uppercase; }
-.sticky-footer { position: fixed; bottom: 0; width: 100%; max-width: 500px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); padding: 15px; z-index: 100; box-sizing: border-box; }
+/* --- GERAL --- */
+.card-marmita { background: var(--card); border: 1px solid var(--border); border-radius: 18px; display: flex; align-items: center; padding: 12px; gap: 15px; margin-bottom: 12px; }
+.card-marmita img { width: 70px; height: 70px; border-radius: 14px; object-fit: cover; }
+.btn-yellow { background: var(--primary); color: black; font-weight: 900; padding: 20px; border-radius: 18px; width: 100%; border: none; text-transform: uppercase; font-size: 16px; cursor: pointer; }
+.sticky-footer { position: fixed; bottom: 0; width: 100%; max-width: 500px; left: 50%; transform: translateX(-50%); background: linear-gradient(to top, #000 80%, transparent); padding: 20px; z-index: 100; box-sizing: border-box; }
+.secao-titulo { color: var(--primary); font-size: 12px; font-weight: 900; text-transform: uppercase; margin: 30px 0 15px 4px; }
