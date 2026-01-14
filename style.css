@@ -1,99 +1,27 @@
-:root { --primary: #eab308; }
-body { 
-    background: #000; 
-    color: white; 
-    font-family: 'Inter', sans-serif; 
-    -webkit-tap-highlight-color: transparent;
-    margin: 0;
-    padding: 0;
-}
+:root { --primary: #eab308; --bg: #000; --card: #121212; --border: #222; }
+body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+#app { max-width: 500px; margin: 0 auto; padding: 15px; padding-bottom: 140px; }
 
-#app {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 10px;
-    padding-bottom: 140px; /* Espaço para o botão flutuante não cobrir o conteúdo */
-}
+/* CARD DE MARMITA COM FOTO (ORIGINAL) */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; display: flex; align-items: center; padding: 12px; gap: 12px; margin-bottom: 12px; }
+.card img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; background: #222; flex-shrink: 0; }
+.card-info { flex-grow: 1; }
+.card-info h3 { font-size: 15px; margin: 0; font-weight: 800; text-transform: uppercase; }
+.card-info p { color: var(--primary); font-weight: 900; margin: 2px 0 0 0; font-size: 17px; }
 
-.logo-title { font-weight: 900; font-size: 1.5rem; color: var(--primary); text-transform: uppercase; text-align: center; padding: 20px 0; }
+/* SELEÇÃO DE ITENS (VAI/NÃO) */
+.item-selecao { background: #111; border: 1px solid #222; padding: 15px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.item-selecao.active { border-color: var(--primary); background: #221a00; }
 
-.card { 
-    background: #0c0c0c; 
-    border: 1px solid #1a1a1a; 
-    border-radius: 16px; 
-    display: flex; 
-    align-items: center; 
-    padding: 12px; 
-    gap: 12px;
-    margin-bottom: 12px;
-}
+/* FINALIZAÇÃO (BONITA COMO VOCÊ PEDIU) */
+.label-premium { display: block; font-size: 10px; font-weight: 800; color: #71717a; text-transform: uppercase; margin: 15px 0 8px 4px; }
+.input-premium { background: #18181b !important; border: 2px solid #27272a !important; color: white !important; padding: 16px !important; border-radius: 14px !important; width: 100% !important; box-sizing: border-box !important; margin-bottom: 10px !important; }
 
-/* Ajuste da imagem para não empurrar os botões */
-.card img {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    object-cover: cover;
-    flex-shrink: 0; /* Impede a imagem de amassar */
-}
+/* PAINEL ADM (ESTILO COMPACTO ORIGINAL) */
+.card-adm { background: #111; border: 1px solid #333; padding: 8px; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.input-adm { background: #000 !important; border: 1px solid #444 !important; color: white !important; padding: 6px !important; border-radius: 6px !important; font-size: 12px !important; width: auto !important; margin: 0 !important; }
 
-.card-info {
-    flex-grow: 1; /* Faz o texto ocupar o máximo de espaço possível */
-    min-width: 0; /* Evita que o texto quebre o layout */
-}
-
-.card-info h3 { font-size: 14px; font-weight: 700; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-info p { font-size: 16px; font-weight: 900; color: var(--primary); margin: 2px 0 0 0; }
-
-/* Container dos botões - Agora eles não cortam */
-.controles {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0; /* Garante que os botões mantenham o tamanho */
-}
-
-.btn-control {
-    background: #1a1a1a;
-    color: white;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    border: 1px solid #333;
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.btn-control:active { background: var(--primary); color: #000; }
-
-.qtd-num { font-weight: 900; font-size: 16px; min-width: 20px; text-align: center; }
-
-.sticky-footer { 
-    position: fixed; 
-    bottom: 0; 
-    width: 100%; 
-    max-width: 600px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    background: rgba(0,0,0,0.9); 
-    padding: 15px; 
-    z-index: 100; 
-    backdrop-filter: blur(10px);
-    box-sizing: border-box;
-}
-
-.btn-yellow { 
-    background: var(--primary); 
-    color: #000; 
-    font-weight: 900; 
-    padding: 18px; 
-    border-radius: 14px; 
-    width: 100%; 
-    text-transform: uppercase; 
-    border: none;
-    font-size: 16px;
-}
+/* BOTÕES */
+.btn-yellow { background: var(--primary); color: #000; font-weight: 900; padding: 18px; border-radius: 16px; width: 100%; border: none; text-transform: uppercase; cursor: pointer; }
+.btn-control { background: #1a1a1a; color: white; width: 35px; height: 35px; border-radius: 8px; border: 1px solid #333; font-weight: bold; }
+.sticky-footer { position: fixed; bottom: 0; width: 100%; max-width: 500px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); padding: 15px; box-sizing: border-box; z-index: 999; }
