@@ -193,11 +193,18 @@ function renderPasso4(app) {
         <button onclick="enviarZap('${total}')" class="btn-yellow !py-6 text-xl">Enviar no WhatsApp</button>`;
 }
 
+// Função auxiliar para limpar acentos (ç -> c, ã -> a, é -> e, etc)
+function removerAcentos(texto) {
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 window.enviarZap = (total) => {
     const n = document.getElementById('cli_n').value, e = document.getElementById('cli_e').value, p = document.getElementById('cli_p').value;
     if(!n || !e) return alert("Preencha nome e endereço!");
     
     const d = new Date().toLocaleDateString(), h = new Date().toLocaleTimeString().slice(0,5);
+    
+    // Monta a mensagem original (ainda com acentos)
     let msg = `------------------------- \n***QUENTINHA DA LU***\n------------------------- \n\nPedido n ${db.config.pedidoAtual} \nCliente: ${n} \n\n${d} Hora: ${h} \n\nForma de Pagamento: "${p}" \nEndereço: "${e}" \n`;
     
     montagem.forEach((m, idx) => { 
@@ -209,16 +216,16 @@ window.enviarZap = (total) => {
         carrinhoExtras.forEach(c => { msg += `${c.qty}x ${c.nome}\n`; });
     }
     
-    msg += `\n------------------------- \nTotal:${moeda(parseFloat(total))}\n\n***OBRIGADO!***`;
+    msg += `\n------------------------- \nTotal:${moeda(parseFloat(total))}\n\n***OBRIGADO PELA PREFERÊNCIA, VOLTE SEMPRE!!!***`;
     
     db.config.lucroTotal += parseFloat(total); 
     db.config.pedidoAtual++; 
     saveToDisk();
     
-    window.open(`https://wa.me/${db.config.tel}?text=${encodeURIComponent(msg)}`);
+    // --- AQUI A MÁGICA ACONTECE ---
+    // Remove os acentos da mensagem inteira antes de enviar
+    const msgLimpa = removerAcentos(msg);
+    
+    window.open(`https://wa.me/${db.config.tel}?text=${encodeURIComponent(msgLimpa)}`);
     location.reload();
 };
-
-// Inicia o app
-
-render();
