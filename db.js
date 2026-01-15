@@ -1,15 +1,17 @@
-
+// ===============================
+// DB PRINCIPAL — QUENTINHA DA LU
+// ===============================
 
 function gerarHash(obj) {
     return btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
 }
 
-// 📦 BANCO PADRÃO (EDITA AQUI QUANDO QUISER)
+// 📦 BANCO PADRÃO
 const dbPadrao = {
-    config: { 
-        pedidoAtual: 1, 
-        lucroTotal: 0, 
-        tel: "558386379041" 
+    config: {
+        pedidoAtual: 1,
+        lucroTotal: 0,
+        tel: "558386379041"
     },
 
     tamanhos: [
@@ -50,15 +52,15 @@ const dbPadrao = {
     ]
 };
 
-// 🔑 HASH ATUAL (SE MUDAR QUALQUER COISA ACIMA, ELE MUDA)
+// 🔑 HASH AUTOMÁTICO
 const HASH_ATUAL = gerarHash({
     tamanhos: dbPadrao.tamanhos,
     cardapio: dbPadrao.cardapio,
     extras: dbPadrao.extras
 });
 
-// 🔁 CARREGAMENTO INTELIGENTE
-let dbLocal = JSON.parse(localStorage.getItem('lu_sistema_final'));
+// 🔁 CARGA INTELIGENTE
+let dbLocal = JSON.parse(localStorage.getItem("lu_sistema_final"));
 let db;
 
 if (!dbLocal || dbLocal.hash !== HASH_ATUAL) {
@@ -66,18 +68,20 @@ if (!dbLocal || dbLocal.hash !== HASH_ATUAL) {
         ...dbPadrao,
         hash: HASH_ATUAL
     };
-    localStorage.setItem('lu_sistema_final', JSON.stringify(db));
+    localStorage.setItem("lu_sistema_final", JSON.stringify(db));
 } else {
     db = dbLocal;
 }
 
 // 💾 SALVAR
-const saveToDisk = () => {
-    localStorage.setItem('lu_sistema_final', JSON.stringify(db));
-};
+function saveToDisk() {
+    localStorage.setItem("lu_sistema_final", JSON.stringify(db));
+}
 
 // 💰 FORMATAR MOEDA
-const moeda = (v) =>
-    v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-
+function moeda(valor) {
+    return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
