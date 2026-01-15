@@ -209,7 +209,7 @@ window.enviarZap = (total) => {
         carrinhoExtras.forEach(c => { msg += `${c.qty}x ${c.nome}\n`; });
     }
     
-    msg += `\n------------------------- \nTotal: ${moeda(parseFloat(total))}\n\n***OBRIGADO!***`;
+    msg += `\n------------------------- \nTotal:${moeda(parseFloat(total))}\n\n***OBRIGADO!***`;
     
     db.config.lucroTotal += parseFloat(total); 
     db.config.pedidoAtual++; 
@@ -220,4 +220,5 @@ window.enviarZap = (total) => {
 };
 
 // Inicia o app
+
 render();
