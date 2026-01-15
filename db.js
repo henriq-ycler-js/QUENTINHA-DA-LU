@@ -1,10 +1,4 @@
-if (!localStore.getlt
-    em('lu_force_reload'))
-{
-    localSrorage.clear();
-    localSrorage.seltlt
-    em('lu_force_reload','1');
-}
+
 
 function gerarHash(obj) {
     return btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
@@ -85,4 +79,5 @@ const saveToDisk = () => {
 // 💰 FORMATAR MOEDA
 const moeda = (v) =>
     v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
 
