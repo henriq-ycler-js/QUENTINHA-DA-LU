@@ -2,6 +2,14 @@
 // DB PRINCIPAL — QUENTINHA DA LU
 // ===============================
 
+const FORCE_VERSION = "20260115";
+
+const versaoSalva = localStorage.getItem("lu_version");
+
+if (versaoSalva !== FORCE_VERSION) {
+    localStorage.clear();
+    localStorage.setItem("lu_version", FORCE_VERSION);
+}
 function gerarHash(obj) {
     return btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
 }
@@ -85,3 +93,4 @@ function moeda(valor) {
         currency: "BRL"
     });
 }
+
