@@ -2,7 +2,7 @@
 // DB PRINCIPAL — QUENTINHA DA LU
 // ===============================
 
-const FORCE_VERSION = "20260116";
+const FORCE_VERSION = "20260117";
 
 const versaoSalva = localStorage.getItem("lu_version");
 
@@ -42,7 +42,7 @@ const dbPadrao = {
        { nome: "Cenoura e beterraba", tipo: "acomp", status: true },
        { nome: "Peixe frito", tipo: "carne", status: true },
        { nome: "Boi guizado", tipo: "carne", status: true },
-       { nome: "Calabreza acebolada", tipo: "carne", status: true },
+       { nome: "Calabreza acebolada", tipo: "carne", status: true }
     ],
 
     extras: [
@@ -90,5 +90,6 @@ function moeda(valor) {
         currency: "BRL"
     });
 }
+
 
 
