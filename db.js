@@ -2,7 +2,7 @@
 // DB PRINCIPAL — QUENTINHA DA LU
 // ===============================
 
-const FORCE_VERSION = "20260115";
+const FORCE_VERSION = "20260116";
 
 const versaoSalva = localStorage.getItem("lu_version");
 
@@ -25,36 +25,33 @@ const dbPadrao = {
     tamanhos: [
         { id: 1, nome: "Baby", preco: 12.00, carnes: 1, status: true, img: "" },
         { id: 2, nome: "Pequena", preco: 15.00, carnes: 1, status: true, img: "" },
-        { id: 3, nome: "Média", preco: 18.00, carnes: 2, status: true, img: "" },
-        { id: 4, nome: "Grande", preco: 20.00, carnes: 3, status: true, img: "" }
+        { id: 3, nome: "Média", preco: 18.00, carnes: 1, status: true, img: "" },
+        { id: 4, nome: "Grande", preco: 20.00, carnes: 2, status: true, img: "" },
+        { id: 5, nome: "GG", preco: 25.00, carnes: 3, status: true, img: "" }
     ],
 
     cardapio: [
-        { nome: "Panqueca de frango", tipo: "carne", status: false },
-        { nome: "Peixe frito", tipo: "carne", status: true },
-        { nome: "Carne de sol", tipo: "carne", status: false },
-        { nome: "Galinha guisada", tipo: "carne", status: false },
-        { nome: "Calabresa acebolada", tipo: "carne", status: false },
-        { nome: "Fígado acebolado", tipo: "carne", status: false },
-        { nome: "Isca de fígado", tipo: "carne", status: false },
-        { nome: "Cocha sobre cocha", tipo: "carne", status: false },
-        { nome: "Bisteca de frango", tipo: "carne", status: false },
-        { nome: "Boi guisado", tipo: "carne", status: true },
-
-        { nome: "Macaxeira", tipo: "acomp", status: true },
-        { nome: "Batata doce", tipo: "acomp", status: true },
-        { nome: "Arroz refogado", tipo: "acomp", status: true },
-        { nome: "Macarrão ninho", tipo: "acomp", status: false },
-        { nome: "Macarrão parafuso", tipo: "acomp", status: false }
+       { nome: "Feijão carioca", tipo: "acomp", status: true },
+       { nome: "Arroz refolgado", tipo: "acomp", status: true },
+       { nome: "Macarrão espaguete", tipo: "acomp", status: true },
+       { nome: "Cuscuz temperado", tipo: "acomp", status: true },
+       { nome: "Farofa caseira", tipo: "acomp", status: true },
+       { nome: "Batata doce", tipo: "acomp", status: true },
+       { nome: "Purê de batatinha", tipo: "acomp", status: true },
+       { nome: "Salada de alface", tipo: "acomp", status: true },
+       { nome: "Cenoura e beterraba", tipo: "acomp", status: true },
+       { nome: "Peixe frito", tipo: "carne", status: true },
+       { nome: "Boi guizado", tipo: "carne", status: true },
+       { nome: "Calabreza acebolada", tipo: "carne", status: true },
     ],
 
     extras: [
         { nome: "Suco de Acerola", preco: 5.00, status: true },
         { nome: "Suco de Maracujá", preco: 5.00, status: true },
-        { nome: "Suco de Goiaba", preco: 5.00, status: true },
+        { nome: "Suco de Goiaba", preco: 5.00, status: false },
         { nome: "Suco de Manga", preco: 5.00, status: true },
-        { nome: "Suco de Caju", preco: 5.00, status: true },
-        { nome: "Suco de Abacaxi com Hortelã", preco: 5.00, status: true },
+        { nome: "Suco de Caju", preco: 5.00, status: false },
+        { nome: "Suco de Abacaxi com Hortelã", preco: 5.00, status: false },
         { nome: "Coca-Cola 0", preco: 5.50, status: true },
         { nome: "Coca-Cola", preco: 5.50, status: true }
     ]
@@ -93,4 +90,5 @@ function moeda(valor) {
         currency: "BRL"
     });
 }
+
 
