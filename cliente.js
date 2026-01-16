@@ -1,5 +1,5 @@
-let carrinhoMarmitas = []; // Lista de {id, qty}
-let carrinhoExtras = [];   // Lista de {nome, qty}
+let carrinhoMarmitas = [];
+let carrinhoExtras = [];
 let etapa = 1;
 let indexMarmita = 0;
 let montagem = [];
@@ -14,19 +14,16 @@ function render() {
     else if (etapa === 4) renderPasso4(app);
 }
 
-// --- PASSO 1: ESCOLHER TAMANHOS ---
+// --- PASSO 1 ---
 function renderPasso1(app) {
     let html = `<h2 class="text-zinc-500 font-bold text-[10px] uppercase mb-4 text-center tracking-widest">Selecione o Tamanho</h2><div class="space-y-3">`;
     
-    // Filtra apenas tamanhos ativos
     const ativos = db.tamanhos.filter(t => t.status);
-
     if (ativos.length === 0) {
         html += `<p class="text-center text-zinc-600 py-10">Nenhum tamanho disponível no momento.</p>`;
     }
 
     ativos.forEach(t => {
-        // Busca a quantidade atual no carrinho
         let itemNoCarrinho = carrinhoMarmitas.find(c => String(c.id) === String(t.id));
         let qtd = itemNoCarrinho ? itemNoCarrinho.qty : 0;
 
@@ -47,38 +44,30 @@ function renderPasso1(app) {
 
     html += `</div>`;
 
-    // Soma total de marmitas para mostrar o botão
     let totalMarmitas = carrinhoMarmitas.reduce((acc, obj) => acc + obj.qty, 0);
 
     if (totalMarmitas > 0) {
-        html += `
-        <div class="sticky-footer">
+        html += `<div class="sticky-footer">
             <button onclick="irMontagem()" class="btn-yellow">
                 Montar ${totalMarmitas} Marmita(s) ➜
             </button>
         </div>`;
     }
+
     app.innerHTML = html;
 }
 
-// FUNÇÃO DE ADICIONAR QUE RESOLVE O PROBLEMA DO "ZERO"
 window.addMarmita = (id, v) => {
     let index = carrinhoMarmitas.findIndex(c => String(c.id) === String(id));
-
     if (index > -1) {
-        // Já existe, aumenta ou diminui
         carrinhoMarmitas[index].qty += v;
-        // Se chegar a zero ou menos, remove da lista
         if (carrinhoMarmitas[index].qty <= 0) {
             carrinhoMarmitas.splice(index, 1);
         }
-    } else {
-        // Não existe e está tentando adicionar
-        if (v > 0) {
-            carrinhoMarmitas.push({ id: id, qty: 1 });
-        }
+    } else if (v > 0) {
+        carrinhoMarmitas.push({ id: id, qty: 1 });
     }
-    render(); // Atualiza a tela imediatamente
+    render();
 };
 
 window.irMontagem = () => {
@@ -100,7 +89,7 @@ window.irMontagem = () => {
     etapa = 2; indexMarmita = 0; render();
 };
 
-// --- PASSO 2: MONTAR CADA MARMITA ---
+// --- PASSO 2 ---
 function renderPasso2(app) {
     const m = montagem[indexMarmita];
     const carnes = db.cardapio.filter(i => i.status && i.tipo === 'carne');
@@ -113,10 +102,16 @@ function renderPasso2(app) {
             <p class="text-zinc-500 font-bold text-xs uppercase">Escolha até ${m.maxC} carne(s)</p>
         </div>
         <div class="secao-titulo">Carnes (${m.cSel}/${m.maxC})</div>
-        <div class="grid grid-cols-1 gap-2 mb-4">${carnes.map(i => `<div onclick="toggleComida('${i.nome}', 'carne')" class="item-vai-nao ${m.itens.includes(i.nome) ? 'selected' : ''}"><span>${i.nome}</span><b>${m.itens.includes(i.nome)?'VAI':'NÃO'}</b></div>`).join('')}</div>
+        <div class="grid grid-cols-1 gap-2 mb-4">
+            ${carnes.map(i => `<div onclick="toggleComida('${i.nome}', 'carne')" class="item-vai-nao ${m.itens.includes(i.nome) ? 'selected' : ''}"><span>${i.nome}</span><b>${m.itens.includes(i.nome)?'VAI':'NÃO'}</b></div>`).join('')}
+        </div>
         <div class="secao-titulo">Acompanhamentos</div>
-        <div class="grid grid-cols-1 gap-2">${acomp.map(i => `<div onclick="toggleComida('${i.nome}', 'acomp')" class="item-vai-nao ${m.itens.includes(i.nome) ? 'selected' : ''}"><span>${i.nome}</span><b>${m.itens.includes(i.nome)?'VAI':'NÃO'}</b></div>`).join('')}</div>
-        <div class="sticky-footer"><button onclick="proxM()" class="btn-yellow">${indexMarmita + 1 === montagem.length ? 'Ir para Bebidas ➜' : 'Próxima Marmita ➜'}</button></div>`;
+        <div class="grid grid-cols-1 gap-2">
+            ${acomp.map(i => `<div onclick="toggleComida('${i.nome}', 'acomp')" class="item-vai-nao ${m.itens.includes(i.nome) ? 'selected' : ''}"><span>${i.nome}</span><b>${m.itens.includes(i.nome)?'VAI':'NÃO'}</b></div>`).join('')}
+        </div>
+        <div class="sticky-footer">
+            <button onclick="proxM()" class="btn-yellow">${indexMarmita + 1 === montagem.length ? 'Ir para Bebidas ➜' : 'Próxima Marmita ➜'}</button>
+        </div>`;
 }
 
 window.toggleComida = (n, t) => {
@@ -140,7 +135,7 @@ window.proxM = () => {
     }
 };
 
-// --- PASSO 3: BEBIDAS ---
+// --- PASSO 3 ---
 function renderPasso3(app) {
     let html = `<h2 class="text-xl font-black uppercase mb-6 text-center">Bebidas e Extras</h2><div class="space-y-3">`;
     db.extras.filter(e => e.status).forEach(e => {
@@ -171,7 +166,7 @@ window.addExtra = (n, v) => {
     render();
 };
 
-// --- PASSO 4: FINALIZAR ---
+// --- PASSO 4 ---
 function renderPasso4(app) {
     let total = montagem.reduce((a, b) => a + b.preco, 0);
     carrinhoExtras.forEach(c => { 
@@ -193,7 +188,7 @@ function renderPasso4(app) {
         <button onclick="enviarZap('${total}')" class="btn-yellow !py-6 text-xl">Enviar no WhatsApp</button>`;
 }
 
-// Função auxiliar para limpar acentos (ç -> c, ã -> a, é -> e, etc)
+// --- FUNÇÕES AUX ---
 function removerAcentos(texto) {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
@@ -204,7 +199,6 @@ window.enviarZap = (total) => {
     
     const d = new Date().toLocaleDateString(), h = new Date().toLocaleTimeString().slice(0,5);
     
-    // Monta a mensagem original (ainda com acentos)
     let msg = `------------------------- \n***QUENTINHA DA LU***\n------------------------- \n\nPedido n ${db.config.pedidoAtual} \nCliente: ${n} \n\n${d} Hora: ${h} \n\nForma de Pagamento: "${p}" \nEndereço: "${e}" \n`;
     
     montagem.forEach((m, idx) => { 
@@ -222,10 +216,10 @@ window.enviarZap = (total) => {
     db.config.pedidoAtual++; 
     saveToDisk();
     
-    // --- AQUI A MÁGICA ACONTECE ---
-    // Remove os acentos da mensagem inteira antes de enviar
     const msgLimpa = removerAcentos(msg);
-    
     window.open(`https://wa.me/${db.config.tel}?text=${encodeURIComponent(msgLimpa)}`);
     location.reload();
 };
+
+// ---- CHAMADA INICIAL ----
+render(); // <<< ESSENCIAL para carregar a primeira tela
