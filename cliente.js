@@ -1,3 +1,4 @@
+let etapa = "cardapio";
 import { db } from "./firebase.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -246,4 +247,5 @@ window.enviarZap = (total) => {
 
 // ---- CHAMADA INICIAL ----
 render(); // <<< ESSENCIAL para carregar a primeira tela
+
 
