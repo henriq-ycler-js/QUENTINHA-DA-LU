@@ -1,8 +1,31 @@
-let carrinhoMarmitas = [];
-let carrinhoExtras = [];
-let etapa = 1;
-let indexMarmita = 0;
-let montagem = [];
+import { db } from "./firebase.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const appDiv = document.getElementById("app");
+
+async function carregarCardapio() {
+  const ref = doc(db, "cardapio", "hoje");
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) {
+    appDiv.innerHTML = "<p>Cardápio indisponível</p>";
+    return;
+  }
+
+  const c = snap.data();
+
+  appDiv.innerHTML = `
+    <h2 class="text-xl font-bold mb-2">🍛 Cardápio de Hoje</h2>
+
+    <ul class="space-y-1">
+      <li><b>Acompanhamento:</b> ${c.acompanhamento}</li>
+      <li><b>Carne:</b> ${c.carne}</li>
+      ${c.suco ? `<li>🧃 <b>Suco:</b> ${c.suco}</li>` : ""}
+    </ul>
+  `;
+}
+
+carregarCardapio();
 
 function render() {
     const app = document.getElementById('app');
@@ -223,3 +246,4 @@ window.enviarZap = (total) => {
 
 // ---- CHAMADA INICIAL ----
 render(); // <<< ESSENCIAL para carregar a primeira tela
+
