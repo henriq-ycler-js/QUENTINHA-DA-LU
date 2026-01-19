@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel da Lu - Gestão</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Admin - Cardápio</title>
 </head>
-<body class="pb-32">
-    <header class="p-4 text-center">
-        <h1 class="logo-title">PAINEL DE GESTÃO</h1>
-    </header>
-    <main id="app" class="max-w-md mx-auto p-4"></main>
+<body>
 
-    <script src="db.js"></script>
-    <script src="admin.js"></script>
+<h2>Cardápio</h2>
+<div id="lista"></div>
+
+<hr>
+
+<h3>Novo item</h3>
+<input id="nome" placeholder="Nome do prato">
+<select id="tipo">
+  <option value="carne">Carne</option>
+  <option value="acomp">Acompanhamento</option>
+</select>
+<button onclick="adicionar()">Adicionar</button>
+
+<br><br>
+<button onclick="salvar()">Salvar alterações</button>
+
+<script type="module" src="admin.js"></script>
 </body>
 </html>
