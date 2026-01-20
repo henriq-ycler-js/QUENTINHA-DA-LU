@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin - Cardápio</title>
+  <meta charset="UTF-8" />
+  <title>Admin - Quentinha da Lu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="p-4 max-w-md mx-auto">
 
-<h2>Cardápio</h2>
-<div id="lista"></div>
+  <h1 class="text-2xl font-bold mb-4">Painel Admin</h1>
 
-<hr>
+  <input id="carne" class="border p-2 w-full mb-2" placeholder="Carnes (separadas por vírgula)">
+  <input id="acomp" class="border p-2 w-full mb-2" placeholder="Acompanhamentos">
+  <input id="suco" class="border p-2 w-full mb-4" placeholder="Sucos">
 
-<h3>Novo item</h3>
-<input id="nome" placeholder="Nome do prato">
-<select id="tipo">
-  <option value="carne">Carne</option>
-  <option value="acomp">Acompanhamento</option>
-</select>
-<button onclick="adicionar()">Adicionar</button>
+  <button onclick="salvar()" class="bg-green-600 text-white p-3 w-full rounded">
+    Salvar Cardápio
+  </button>
 
-<br><br>
-<button onclick="salvar()">Salvar alterações</button>
+  <p id="status" class="mt-4 text-center"></p>
 
-<script type="module" src="admin.js"></script>
+  <script type="module" src="admin.js"></script>
 </body>
 </html>
